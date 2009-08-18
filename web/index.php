@@ -1,25 +1,17 @@
 <?php
    
+   include_once(dirname(__FILE__) . "/parser.php");
+   
    function getLine($fh) {
       return preg_replace("/\s+/",",",trim(fgets($fh)));
    }
    
    if ($_FILES["emnFile"]["size"] > 0) {
+		if (!move_uploaded_file($_FILES["emnFile"]["tmp_name"],$_FILES["emnFile"]["name"])) {
+			exit("Unable to save temporary file.");
+		}
       
-      $file = fopen($_FILES["emnFile"]["tmp_name"], "r") or exit("Unable to open file!");
-      //Output a line of the file until the end is reached
-      while(!feof($file)) {
-         $line = getLine($file);
-         if (strlen($line) > 0 && $line == ".PLACEMENT") {
-            while (!feof($file)) {
-               $line = getLine($file);
-               if (strlen($line) > 0 && $line != ".END_PLACEMENT") {
-                  $componentList[] = explode(",",$line);
-               }
-            }
-         }
-      }
-      fclose($file);
+      $componentList = parseEmnFile($_FILES["emnFile"]["name"]);
       
       ob_start();
       ?>
@@ -27,27 +19,24 @@
       <br/>
       <form action="index.php" id="componentForm" method="post" name="componentForm" >
          <input id="formType" name="formType" type="hidden" value="component" />
+         <input id="fileName" name="fileName" type="hidden" value="<?=$_FILES["emnFile"]["name"];?>" />
          <table id="componentTable" name="componentTable" >
             <tr>
                <td><input type="checkbox" /></td>
-               <td colspan="<?=count($componentList[0])+count($componentList[1]);?>" >
+               <td colspan="<?=count($componentList[0]["csv"]);?>" >
                   <br/>
                   <br/>
                </td>
             </tr>
             <?php
-            for ($i=0; $i<count($componentList); $i+=2) {
-               $componentDataLine1 = $i;
-               $componentDataLine2 = $i+1;
+			$i = 1;
+            foreach ($componentList as $componentName => $component) {
                ?>
                <tr>
-                  <td><input type="checkbox" /></td>
+                  <td><input id="cb<?=$i++;?>" name="cb<?=$i++;?>" type="checkbox" value="<?=$componentName;?>" /></td>
                   <?php
-                  foreach ($componentList[$componentDataLine1] as $componentField) {
-                     ?><td><?=$componentField;?></td><?php
-                  }
-                  foreach ($componentList[$componentDataLine2] as $componentField) {
-                     ?><td><?=$componentField;?></td><?php
+                  foreach ($component["csv"] as $value) {
+                     ?><td><?=$value;?></td><?php
                   }
                   ?>
                </tr>
