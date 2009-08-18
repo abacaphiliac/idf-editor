@@ -1,0 +1,17 @@
+
+table#componentTable {
+ width:100%;
+}
+
+table#componentTable tr {
+ vertical-align:top;
+}
+
+div.form {
+ border:1px solid #000;
+ padding:10px;
+}
+
+div.select {
+ display:none;
+}
