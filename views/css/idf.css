@@ -1,10 +1,51 @@
+.center {
+text-align:center;
+}
+
+.componentHover {
+background:#E9FFFA !important;
+}
+
+.even {
+background:#E9F0FA;
+}
+
+.inappropriate {
+color:#f00;
+font-style:italic;
+}
+
+.indentLarge {
+margin-left:60px;
+}
+.indentSmall {
+margin-left:15px;
+}
+
+.left {
+text-align:left;
+}
+
+.odd {
+background:#fff;
+}
+
+.right {
+text-align:right;
+}
 
 table#componentTable {
+ border-collapse:collapse;
  width:100%;
 }
 
 table#componentTable tr {
  vertical-align:top;
+ border-bottom:1px solid rgb(189, 199, 216);
+}
+
+table#componentTable td {
+ padding:5px;
 }
 
 div.form {

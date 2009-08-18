@@ -17,23 +17,23 @@
       ?>
       <em><?=$_FILES["emnFile"]["name"];?></em><br/>
       <br/>
-      <form action="index.php" id="componentForm" method="post" name="componentForm" >
+      <form action="generateResultFile.php" id="componentForm" method="post" name="componentForm" >
          <input id="formType" name="formType" type="hidden" value="component" />
          <input id="fileName" name="fileName" type="hidden" value="<?=$_FILES["emnFile"]["name"];?>" />
          <table id="componentTable" name="componentTable" >
-            <tr>
-               <td><input type="checkbox" /></td>
+            <tr class="even" >
+               <td><input id="toggleAll" name="toggleAll" type="checkbox" /></td>
                <td colspan="<?=count($componentList[0]["csv"]);?>" >
-                  <br/>
+                  Select all/none<br/>
                   <br/>
                </td>
             </tr>
             <?php
-			$i = 1;
+            $i = 1;
             foreach ($componentList as $componentName => $component) {
                ?>
-               <tr>
-                  <td><input id="cb<?=$i++;?>" name="cb<?=$i++;?>" type="checkbox" value="<?=$componentName;?>" /></td>
+               <tr class="<?=($i++%2==0)?"even":"odd";?>" >
+                  <td><input id="<?=$componentName;?>" name="<?=$componentName;?>" type="checkbox" /></td>
                   <?php
                   foreach ($component["csv"] as $value) {
                      ?><td><?=$value;?></td><?php
@@ -59,10 +59,6 @@
       ob_end_clean();
       
       $componentFormDisplay = "style='display:block;'";
-   }
-   
-   if ($_REQUEST["formType"] == "component") {
-      
    }
    
 ?>
