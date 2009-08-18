@@ -24,7 +24,14 @@ function registerComponentFormSubmit() {
       // Send names and values of form input fields
       var data = [];
       $("form#componentForm :input").each(function() {
-         data[data.length] = $(this).attr("name") + "=" + $(this).attr("value");
+         if ($(this).attr("type") == "checkbox") {
+            if ($(this).attr("checked") == 1) {
+               data[data.length] = $(this).attr("name") + "=" + $(this).attr("value");
+            }
+         }
+         else {
+            data[data.length] = $(this).attr("name") + "=" + $(this).attr("value");
+         }
       });
       data = data.join("&");
       
@@ -37,11 +44,11 @@ function registerComponentFormSubmit() {
          cache: false,
          data: data,
          error: function(result) {
-            // $("div#content").html("An error occurred while submitting. Please 'refresh' this page and retry.");
+            $("span#resultFileResponse").html("An error occurred while submitting. Try again, and refresh if it still does not work.");
          },
          success: function(result) {
             // $("div#content").html(result);
-            alert(result);
+            $("span#resultFileResponse").html("Download file: <a href='" + result + "' >" + result + "</a>");
          }
       });
       
@@ -52,13 +59,9 @@ function registerHoverEffect() {
    $("table#componentTable tr").each(function() {
       $(this).mouseout(function() {
          $(this).removeClass("componentHover");
-         // eventElement.removeClassName("wfcListComboHover");
-         // eventElement.getFirstChild().getFirstChild().setStyle({display:"none"});
       });
       $(this).mouseover(function() {
          $(this).addClass("componentHover");
-         // eventElement.addClassName("wfcListComboHover");
-         // eventElement.getFirstChild().getFirstChild().setStyle({display:"block"});
       });
    });
 }
@@ -73,11 +76,13 @@ function registerToggleSingleClickEvent() {
    
    $("table#componentTable tr").each(function() {
       $(this).mouseup(function() {
+         var checkbox = $(this).find("input");
+         var toggle = (checkbox.attr("checked"))?0:1;
          
-         // if id is toggle all then toggle all!!
-         
-         var toggle = ($(this).find("input").attr("checked"))?0:1;
-         $(this).find("input").attr("checked",toggle);
+         checkbox.attr("checked",toggle);
+         if (checkbox.attr("id") == "toggleAll") {
+            toggleAllComponents();
+         }
       });
    });
 }

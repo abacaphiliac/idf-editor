@@ -2,9 +2,9 @@
    
    include_once(dirname(__FILE__) . "/parser.php");
    
-   function getLine($fh) {
-      return preg_replace("/\s+/",",",trim(fgets($fh)));
-   }
+   // function getLine($fh) {
+      // return preg_replace("/\s+/",",",trim(fgets($fh)));
+   // }
    
    if ($_FILES["emnFile"]["size"] > 0) {
 		if (!move_uploaded_file($_FILES["emnFile"]["tmp_name"],$_FILES["emnFile"]["name"])) {
@@ -50,6 +50,8 @@
                <td colspan="<?=count($componentList[0])+count($componentList[1]);?>" >
                   <br/>
                   <input id="componentSubmit" name="componentSubmit" type="submit" value="Generate file" />
+                  <span id="resultFileResponse" ></span><br/>
+                  <br/>
                </td>
             </tr>
          </table>
