@@ -14,6 +14,10 @@ $(document).ready(function() {
    
 });
 
+function clearForm() {
+   $("div.select").css("display","none");
+}
+
 function registerComponentFormSubmit() {
    $("input#componentSubmit").click(function(e) {
       e.preventDefault();
@@ -35,20 +39,19 @@ function registerComponentFormSubmit() {
       });
       data = data.join("&");
       
-      // Display 'load' state
-      // $("div#content").html("<img src=\"/images/animated.gif\" alt=\"\" /> Your assessment is being submitted. Please wait ...");
-      
       $.ajax({
          type: method,
          url: action,
          cache: false,
          data: data,
          error: function(result) {
-            $("span#resultFileResponse").html("An error occurred while submitting. Try again, and refresh if it still does not work.");
+            var answer = confirm("An error has occurred. Try again?");
+            if (answer) {
+               clearForm();
+            }
          },
          success: function(result) {
-            // $("div#content").html(result);
-            $("span#resultFileResponse").html("Download file: <a href='" + result + "' >" + result + "</a>");
+            $("span#resultFileResponse").html("Download file: <a href='files/download/" + result + "' >" + result + "</a> ( Right-click + 'Save link as &hellip;' )");
          }
       });
       

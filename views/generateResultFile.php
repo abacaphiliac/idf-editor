@@ -2,14 +2,13 @@
    
    include_once(dirname(__FILE__) . "/parser.php");
    
-   $readFileName = $_REQUEST["fileName"];
-   $writeFileName = $readFileName . "." . time() . ".txt";
-   
-   if ($_REQUEST["formType"] == "component" && $readFileName != "" ) {
+   if ($_REQUEST["formType"] == "component" && $_REQUEST["fileName"] != "" ) {
+      
+      $writeFileName = $_REQUEST["fileName"] . "." . time() . ".emn";
       
       $componentList = parseEmnFile($_REQUEST["fileName"]);
       
-      $file = fopen($writeFileName, "w") or exit("Unable to open file!");
+      $file = fopen("files/download/" . $writeFileName, "w") or exit("Unable to open write file!");
       
       foreach ($componentList as $componentName => $component) {
          if ($_REQUEST[$componentName] == "on") {

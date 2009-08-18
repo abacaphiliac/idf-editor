@@ -2,16 +2,13 @@
    
    include_once(dirname(__FILE__) . "/parser.php");
    
-   // function getLine($fh) {
-      // return preg_replace("/\s+/",",",trim(fgets($fh)));
-   // }
-   
    if ($_FILES["emnFile"]["size"] > 0) {
-		if (!move_uploaded_file($_FILES["emnFile"]["tmp_name"],$_FILES["emnFile"]["name"])) {
+		if (!move_uploaded_file($_FILES["emnFile"]["tmp_name"], "files/upload" . $_FILES["emnFile"]["name"])) {
 			exit("Unable to save temporary file.");
 		}
       
       $componentList = parseEmnFile($_FILES["emnFile"]["name"]);
+      $numberOfFields = count($componentList[key($componentList)]["csv"]);
       
       ob_start();
       ?>
@@ -23,7 +20,7 @@
          <table id="componentTable" name="componentTable" >
             <tr class="even" >
                <td><input id="toggleAll" name="toggleAll" type="checkbox" /></td>
-               <td colspan="<?=count($componentList[0]["csv"]);?>" >
+               <td colspan="<?=$numberOfFields;?>" >
                   Select all/none<br/>
                   <br/>
                </td>
@@ -47,7 +44,7 @@
                <td>
                   <br/>
                </td>
-               <td colspan="<?=count($componentList[0])+count($componentList[1]);?>" >
+               <td colspan="<?=$numberOfFields;?>" >
                   <br/>
                   <input id="componentSubmit" name="componentSubmit" type="submit" value="Generate file" />
                   <span id="resultFileResponse" ></span><br/>

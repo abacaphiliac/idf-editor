@@ -34,6 +34,10 @@ background:#fff;
 text-align:right;
 }
 
+span#resultFileResponse {
+ padding-left:10px;
+}
+
 table#componentTable {
  border-collapse:collapse;
  width:100%;
