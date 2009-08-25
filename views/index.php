@@ -78,8 +78,6 @@
             Select an EMN input file:<br/>
             <form action="index.php" enctype="multipart/form-data" id="emnForm" method="post" name="emnForm" >
                 <input id="formType" name="formType" type="hidden" value="emn" />
-                <input id="emdFile2" name="emnFile2" size="30" type="file" /><br/><br/>
-                
                 <input id="emnFile" name="emnFile" size="30" type="file" /> <input id="emnSubmit" name="emnSubmit" type="submit" value="Submit" /><br/>
             </form>
         </div>

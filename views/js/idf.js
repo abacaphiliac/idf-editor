@@ -80,9 +80,11 @@ function registerToggleSingleClickEvent() {
 	
 	// Disable single checkbox click
 	$("input").each(function() {
-		$(this).click(function(event) {
-			event.preventDefault();
-		});
+      if ($(this).attr("type") == "checkbox") {
+         $(this).click(function(event) {
+            event.preventDefault();
+         });
+      }
 	});
 	
 	// Pass row click to checkbox
