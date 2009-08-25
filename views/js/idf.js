@@ -10,7 +10,7 @@ $(document).ready(function() {
    $("form#componentForm input#toggleAll").attr("checked",1);
    toggleAllComponents();
    
-   // alert("js ok");
+   alert("js ok");
    
 });
 
