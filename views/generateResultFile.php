@@ -4,25 +4,29 @@
     
     if ($_REQUEST["formType"] == "component" && $_REQUEST["fileName"] != "" ) {
         
-		$t = time();
+		$time = time();
 		
 		// A little housekeeping ...
-		if ($dh = opendir('/path/to/files')) {
-			while (false !== ($file = readdir($dh))) {
-				if (substr($file,0,1) != ".") {
-					$stats = stat($file);
-					if ($stats["mtime"] < ($t - 86400)) {
-						unlink($file);
+		$directoriesToClean = array(dirname(__FILE__) . "/files/download", dirname(__FILE__) . "/files/upload");
+		foreach ($directoriesToClean as $pathToFiles) {
+			if ($dh = opendir($pathToFiles)) {
+				while (false !== ($fileName = readdir($dh))) {
+					if (substr($fileName,0,1) != ".") {
+						$pathToFile = $pathToFiles . "/" . $fileName;
+						$stats = stat($pathToFile);
+						if ($stats["mtime"] < ($time - 86400)) {
+							unlink($pathToFile);
+						}
 					}
 				}
 			}
 		}
 		
-        $writeFileName = $_REQUEST["fileName"] . "." . $t . ".emn";
+        $writeFileName = $_REQUEST["fileName"] . "." . $time . ".emn";
         
         list($boardInfo,$componentList) = parseEmnFile($_REQUEST["fileName"]);
         
-        $file = fopen("files/download/" . $writeFileName, "w") or exit("Unable to open write file!");
+        $file = fopen(dirname(__FILE__) . "/files/download/" . $writeFileName, "w") or exit("Unable to open write file!");
         
 		foreach ($boardInfo as $line) {
             fwrite($file,$line);
