@@ -1,7 +1,7 @@
 <?php
     
     function parseEmnFile($fileName) {
-        $file = fopen("files/upload" . $fileName, "r") or exit("Unable to open read file!");
+        $file = fopen(dirname(__FILE__) . "/files/upload/" . $fileName, "r") or exit("Unable to open read file!");
         
         while(!feof($file)) {
             $line = fgets($file);

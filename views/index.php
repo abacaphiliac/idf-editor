@@ -3,7 +3,7 @@
     include_once(dirname(__FILE__) . "/parser.php");
     
     if ($_FILES["emnFile"]["size"] > 0) {
-		if (!move_uploaded_file($_FILES["emnFile"]["tmp_name"], "files/upload/" . $_FILES["emnFile"]["name"])) {
+		if (!move_uploaded_file($_FILES["emnFile"]["tmp_name"], dirname(__FILE__) . "/files/upload/" . $_FILES["emnFile"]["name"])) {
 			exit("Unable to save temporary file.");
 		}
         

@@ -4,7 +4,21 @@
     
     if ($_REQUEST["formType"] == "component" && $_REQUEST["fileName"] != "" ) {
         
-        $writeFileName = $_REQUEST["fileName"] . "." . time() . ".emn";
+		$t = time();
+		
+		// A little housekeeping ...
+		if ($dh = opendir('/path/to/files')) {
+			while (false !== ($file = readdir($dh))) {
+				if (substr($file,0,1) != ".") {
+					$stats = stat($file);
+					if ($stats["mtime"] < ($t - 86400)) {
+						unlink($file);
+					}
+				}
+			}
+		}
+		
+        $writeFileName = $_REQUEST["fileName"] . "." . $t . ".emn";
         
         list($boardInfo,$componentList) = parseEmnFile($_REQUEST["fileName"]);
         
