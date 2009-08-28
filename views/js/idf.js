@@ -1,17 +1,25 @@
 
 $(document).ready(function() {
-   
-   registerComponentFormSubmit();
-   registerHoverEffect();
-   registerToggleAllCheckbox();
-   registerToggleSingleClickEvent();
-   
-   // Select all components by default
-   $("form#componentForm input#toggleAll").attr("checked",1);
-   toggleAllComponents();
-   
-   alert("js ok");
-   
+	
+	$("table#componentTable").tablesorter({
+		headers: { 
+			0: { 
+				sorter: false
+			}
+		}
+	}); 
+	
+	registerComponentFormSubmit();
+	registerHoverEffect();
+	registerToggleAllCheckbox();
+	registerToggleSingleClickEvent();
+	
+	// Select all components by default
+	$("form#componentForm input#toggleAll").attr("checked",1);
+	toggleAllComponents();
+	
+	alert("js ok");
+	
 });
 
 function clearForm() {
@@ -60,7 +68,7 @@ function registerComponentFormSubmit() {
 }
    
 function registerHoverEffect() {
-   $("table#componentTable tr").each(function() {
+   $("table#componentTable tbody tr").each(function() {
       $(this).mouseout(function() {
          $(this).removeClass("componentHover");
       });
@@ -78,32 +86,31 @@ function registerToggleAllCheckbox() {
 
 function registerToggleSingleClickEvent() {
 	
+	$("input#toggleAll").click(function() {
+		toggleAllComponents();
+	});
+	
 	// Disable single checkbox click
-	$("input").each(function() {
-      if ($(this).attr("type") == "checkbox") {
-         $(this).click(function(event) {
-            event.preventDefault();
-         });
-      }
+	$("table#componentTable tbody tr input").each(function() {
+		if ($(this).attr("type") == "checkbox") {
+			$(this).click(function(event) {
+				event.preventDefault();
+			});
+		}
 	});
 	
 	// Pass row click to checkbox
-	$("table#componentTable tr").each(function() {
+	$("table#componentTable tbody tr").each(function() {
 		$(this).mouseup(function() {
 			var checkbox = $(this).find("input");
 			var toggle = (checkbox.attr("checked"))?0:1;
-			
 			if (toggle == 1) {
 				$(this).addClass("selected");
 			}
 			else {
 				$(this).removeClass("selected");
 			}
-			
 			checkbox.attr("checked",toggle);
-			if (checkbox.attr("id") == "toggleAll") {
-			   toggleAllComponents();
-			}
 		});
    });
 }
@@ -111,7 +118,7 @@ function registerToggleSingleClickEvent() {
 function toggleAllComponents() {
 	var checked = $("form#componentForm input#toggleAll").attr("checked")?1:0;
 	$("form#componentForm").find("input").each(function() {
-		if ($(this).attr("type") == "checkbox") {
+		if ($(this).attr("type") == "checkbox" && $(this).attr("id") != "toggleAll") {
 			$(this).attr("checked",checked);
 			if (checked == 1) {
 				$(this).parent().parent().addClass("selected");
