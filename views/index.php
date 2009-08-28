@@ -29,10 +29,10 @@
 						<th>Part Number</th>
 						<th>column 2</th>
 						<th>Reference Designator</th>
-						<th>column 4</th>
-						<th>column 5</th>
-						<th>column 6</th>
-						<th>column 7</th>
+						<th class="{sorter: 'digit'}" >column 4</th>
+						<th class="{sorter: 'digit'}" >column 5</th>
+						<th class="{sorter: 'digit'}" >column 6</th>
+						<th class="{sorter: 'digit'}" >column 7</th>
 						<th>column 8</th>
 						<th>column 9</th>
 					</tr>
@@ -81,6 +81,7 @@
         
         <script src="js/lib/jquery-1.3.2.min.js" type="text/javascript" ></script>
         <script src="js/lib/jquery.tablesorter.min.js" type="text/javascript" ></script>
+        <script src="js/lib/jquery.metadata.js" type="text/javascript" ></script>
 		
         <script src="js/idf.js" type="text/javascript" ></script>
     </head>
