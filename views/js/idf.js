@@ -1,16 +1,18 @@
 
 $(document).ready(function() {
 	
+	// Make components table sortable
 	$("table#componentTable").tablesorter({
 		headers: { 
 			0: { 
 				sorter: false
 			}
 		}
-	}); 
+	});
 	
 	registerComponentFormSubmit();
 	registerHoverEffect();
+	registerShowFeedbackDialog();
 	registerToggleAllCheckbox();
 	registerToggleSingleClickEvent();
 	
@@ -18,7 +20,7 @@ $(document).ready(function() {
 	$("form#componentForm input#toggleAll").attr("checked",1);
 	toggleAllComponents();
 	
-	alert("js ok");
+	// alert("js ok");
 	
 });
 
@@ -76,6 +78,66 @@ function registerHoverEffect() {
          $(this).addClass("componentHover");
       });
    });
+}
+
+function registerShowFeedbackDialog() {
+
+	$("div.feedback a").click(function() {
+		
+		// Reset form
+		$("div#Feedback textarea").val("");
+		$("div#Feedback div#ThankYou").hide();
+		$("div#Feedback div#FeedbackForm").show();
+		
+		$("div#Feedback").dialog({
+			bgiframe: true,
+			buttons: 	{
+							"Send": function() {
+								sendFeedback();
+							}
+						},
+			close: function() { 
+				$(this).dialog("destroy");
+			},
+			closeOnEscape: false,
+			draggable: false,
+			modal: true,
+			open: function() {
+				
+			},
+			resizable: false,
+			width: 600
+		});
+	});
+	
+}
+
+function sendFeedback() {
+	
+	$.ajax({
+		url: "sendmail.php",
+		type: "POST",
+		data: {
+				username: $("div#Feedback input#username").val(),
+				email: $("div#Feedback input#email").val(),
+				comment: $("div#Feedback textarea#comment").val()
+		},
+		success: function(msg){
+			if (msg == "1") {
+				$("div#Feedback div#FeedbackForm").slideUp("fast");
+				$("div#Feedback div#ThankYou").slideDown("fast");
+				
+				$("div#Feedback textarea").val("");
+				
+				var executionTime = setTimeout(function() {
+					$("div#Feedback").dialog("destroy");
+				}, 2000);
+			}
+		},
+		complete: function() {
+		}
+	});
+	
 }
 
 function registerToggleAllCheckbox() {

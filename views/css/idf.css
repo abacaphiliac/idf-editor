@@ -29,6 +29,24 @@ text-align:right;
 .selected {
 background:#75d764;
 }
+
+div#Dialogs {
+display:none;
+}
+div#Feedback input, div#Feedback textarea {
+font-size:12px;
+}
+div#Feedback input {
+width:230px;
+}
+div#Feedback textarea {
+height:150px;
+width:566px;
+}
+div#Feedback div#ThankYou {
+display:none;
+}
+
 div#headerText {
 font-weight:bold;
 padding:5px;
@@ -49,6 +67,16 @@ border-bottom:1px solid #594ca3;
 }
 table#componentTable tbody td {
 padding:5px;
+}
+
+div.feedback {
+padding-top:10px;
+text-align:left;
+}
+div.feedback a {
+color:#00f;
+cursor:pointer;
+text-decoration:underline;
 }
 div.form {
 border:1px solid #000;

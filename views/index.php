@@ -55,6 +55,9 @@
 					?>
 				</tbody>
             </table>
+			<div class="feedback" >
+				<a rel="lightbox" >feedback</a><br/>
+			</div>
 			<br/>
 			<br/>
 			<input id="componentSubmit" name="componentSubmit" type="submit" value="Generate file" />
@@ -74,16 +77,31 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
     <head>
-        <title>IDF Converter</title>
-        
-        <link href="css/idf.css" rel="stylesheet" type="text/css" />
-        <link href="css/tablesorter.css" rel="stylesheet" type="text/css" />
-        
-        <script src="js/lib/jquery-1.3.2.min.js" type="text/javascript" ></script>
-        <script src="js/lib/jquery.tablesorter.min.js" type="text/javascript" ></script>
-        <script src="js/lib/jquery.metadata.js" type="text/javascript" ></script>
+		<title>IDF Converter</title>
+
+		<link href="http://jqueryui.com/latest/themes/base/ui.all.css" rel="stylesheet"type="text/css" />
+		<link href="css/tablesorter.css" rel="stylesheet" type="text/css" />
+
+		<link href="css/idf.css" rel="stylesheet" type="text/css" />
+
+		<script src="js/lib/jquery-1.3.2.min.js" type="text/javascript" ></script>
+		<script src="js/lib/jquery.metadata.js" type="text/javascript" ></script>
+		<script src="js/lib/jquery.tablesorter.min.js" type="text/javascript" ></script>
+		<script src="js/lib/jquery.bgiframe.min.js" type="text/javascript" ></script>
 		
-        <script src="js/idf.js" type="text/javascript" ></script>
+		<!--
+		<script type="text/javascript" src="http://jqueryui.com/latest/ui/ui.core.js"></script>
+		<script type="text/javascript" src="http://jqueryui.com/latest/ui/ui.draggable.js"></script>
+		<script type="text/javascript" src="http://jqueryui.com/latest/ui/ui.resizable.js"></script>
+		<script type="text/javascript" src="http://jqueryui.com/latest/ui/ui.dialog.js"></script>
+		-->
+		<script type="text/javascript" src="http://jqueryui.com/latest/ui/ui.core.js"></script>
+		<script type="text/javascript" src="http://jqueryui.com/latest/ui/ui.draggable.js"></script>
+		<script type="text/javascript" src="http://jqueryui.com/latest/ui/ui.resizable.js"></script>
+		<script type="text/javascript" src="http://jqueryui.com/latest/ui/ui.dialog.js"></script>
+		
+
+		<script src="js/idf.js" type="text/javascript" ></script>
     </head>
     <body>
         <h1>Input file</h1>
@@ -94,11 +112,32 @@
                 <input id="emnFile" name="emnFile" size="30" type="file" /> <input id="emnSubmit" name="emnSubmit" type="submit" value="Submit" /><br/>
             </form>
         </div>
+		<div class="feedback" >
+			<a>feedback</a><br/>
+		</div>
         <div class="select" <?=$componentFormDisplay;?> >
             <h1>Select components from the list below</h1>
             <div class="form" >
                 <?=$componentForm;?>
             </div>
         </div>
+		<div id="Dialogs" >
+			<div id="Feedback" title="Feedback">
+				<div id="FeedbackForm" >
+					Name:<br/>
+					<input type="text" name="username" id="username" /><br/>
+					<br/>
+					E-mail address:<br/>
+					<input type="text" name="email" id="email" /><br/>
+					<br/>
+					Comment:<br/>
+					<textarea name="comment" id="comment" ></textarea><br/>
+					<br/>
+				</div>
+				<div id="ThankYou">
+					Thank you!
+				</div>
+			</div>
+		</div>
     </body>
 </html>
