@@ -122,7 +122,10 @@
             </div>
         </div>
 		<div id="Dialogs" >
-			<div id="Feedback" title="Feedback">
+			<div id="Feedback" title="Feedback" >
+				<div class="message" >
+				
+				</div>
 				<div id="FeedbackForm" >
 					Name:<br/>
 					<input type="text" name="username" id="username" /><br/>
@@ -133,9 +136,6 @@
 					Comment:<br/>
 					<textarea name="comment" id="comment" ></textarea><br/>
 					<br/>
-				</div>
-				<div id="ThankYou">
-					Thank you!
 				</div>
 			</div>
 		</div>
